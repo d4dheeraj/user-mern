@@ -1,4 +1,5 @@
 1. Created the project with npx create-react-app .
+2. npm i axios bootstrap
 
 # Getting Started with Create React App
 
