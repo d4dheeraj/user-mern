@@ -1,7 +1,8 @@
+```
 RUN app in dev mode: npm run dev
 RUN app: npm start
 RUN test: npm run test
-
+```
 
 
 
