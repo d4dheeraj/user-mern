@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const UserModal = () => {
+const UserModal = ({ handleClose }) => {
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -12,9 +12,24 @@ const UserModal = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("handle submit", user);
+    try {
+      const addUser = await axios.post(
+        "http://localhost:8080/user/create",
+        user
+      );
+      const response = addUser.data;
+      if (response.success) {
+        alert("User added successfully");
+        handleClose();
+        console.log("Success in handleSubmit", response);
+      } else {
+        console.log("Something went wrong", response);
+      }
+    } catch (err) {
+      console.log("Error in handleSubmit", err);
+    }
   };
   return (
     <div id="addUserModal" className="modal fade">
@@ -77,7 +92,11 @@ const UserModal = () => {
                 >
                   Close
                 </button>
-                <button type="submit" className="btn btn-primary">
+                <button
+                  type="submit"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Submit
                 </button>
               </div>

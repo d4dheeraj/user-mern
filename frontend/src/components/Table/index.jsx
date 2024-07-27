@@ -1,6 +1,6 @@
 import React from "react";
 
-const Table = () => {
+const Table = ({ users, error }) => {
   return (
     <div className="container">
       <div className="table-wrapper m-5">
@@ -24,24 +24,31 @@ const Table = () => {
           </div>
         </div>
 
-        <table className="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th></th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td></td>
-              <td>Dheeraj</td>
-              <td>Jain</td>
-              <td>email@rmail.com</td>
-            </tr>
-          </tbody>
-        </table>
+        {error ? (
+          "Something went wrong while fetching users"
+        ) : (
+          <table className="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th></th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users &&
+                users.map((user, index) => (
+                  <tr key={index}>
+                    <td></td>
+                    <td>{user.firstName}</td>
+                    <td>{user.lastName}</td>
+                    <td>{user.email}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );
