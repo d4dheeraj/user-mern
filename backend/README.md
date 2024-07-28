@@ -1,7 +1,19 @@
+RUN app in dev mode
+
 ```
-RUN app in dev mode: npm run dev
-RUN app: npm start
-RUN test: npm run test
+npm run dev
+```
+
+RUN app
+
+```
+npm start
+```
+
+RUN test
+
+```
+npm run test
 ```
 
 1. Created the project with npm init
