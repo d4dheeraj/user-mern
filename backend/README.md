@@ -11,6 +11,7 @@ RUN test: npm run test
 5. added User Modal, route and controller
 6. install joi for API req validation
 7. Added user schema validation in create user API
+8. Added docker files
 
 pending
 
