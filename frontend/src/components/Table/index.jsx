@@ -1,4 +1,5 @@
 import React from "react";
+import "./index.css";
 
 const Table = ({ users, error }) => {
   return (
@@ -27,27 +28,29 @@ const Table = ({ users, error }) => {
         {error ? (
           "Something went wrong while fetching users"
         ) : (
-          <table className="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th></th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users &&
-                users.map((user, index) => (
-                  <tr key={index}>
-                    <td></td>
-                    <td>{user.firstName}</td>
-                    <td>{user.lastName}</td>
-                    <td>{user.email}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
+          <div className="table-responsive table-scrollable">
+            <table className="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users &&
+                  users.map((user, index) => (
+                    <tr key={index}>
+                      <td></td>
+                      <td>{user.firstName}</td>
+                      <td>{user.lastName}</td>
+                      <td>{user.email}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>

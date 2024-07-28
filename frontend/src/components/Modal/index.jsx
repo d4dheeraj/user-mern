@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 import {
   BASE_URL,
@@ -8,6 +8,7 @@ import {
 
 const UserModal = ({ handleClose }) => {
   const [user, setUser] = useState(userInitialValue);
+  const modalRef = useRef(null);
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -21,7 +22,7 @@ const UserModal = ({ handleClose }) => {
       if (response.success) {
         alert("User added successfully");
         setUser(userInitialValue);
-        handleClose();
+        closeModal();
         console.log("Success in handleSubmit", response);
       } else {
         console.log(errMsg, response);
@@ -31,8 +32,18 @@ const UserModal = ({ handleClose }) => {
     }
   };
 
+  const closeModal = () => {
+    const modalElement = modalRef.current;
+    modalElement.style.display = "none";
+    modalElement.classList.remove("show");
+    const backdrops = document.querySelectorAll(".modal-backdrop.show");
+    backdrops.forEach((backdrop) => backdrop.remove());
+
+    handleClose();
+  };
+
   return (
-    <div id="addUserModal" className="modal fade">
+    <div id="addUserModal" className="modal fade" ref={modalRef}>
       <div className="modal-dialog">
         <div className="modal-content">
           <form onSubmit={handleSubmit}>
@@ -98,11 +109,7 @@ const UserModal = ({ handleClose }) => {
                 >
                   Close
                 </button>
-                <button
-                  type="submit"
-                  data-bs-dismiss="modal"
-                  className="btn btn-primary"
-                >
+                <button type="submit" className="btn btn-primary">
                   Submit
                 </button>
               </div>
