@@ -12,8 +12,4 @@ RUN test: npm run test
 6. install joi for API req validation
 7. Added user schema validation in create user API
 8. Added docker files
-
-pending
-
-2. unit test cases
-3. Docker
+9. added best practice npm install --save helmet https://expressjs.com/en/advanced/best-practice-security.html
