@@ -7,7 +7,7 @@ const Table = ({ users, error }) => {
         <div className="table-title">
           <div className="row">
             <div className="col-sm-6">
-              <h2>Manage Employees</h2>
+              <h2>Manage Users</h2>
             </div>
             <div className="col-sm-6">
               <div className="d-md-flex justify-content-md-end">
@@ -17,7 +17,7 @@ const Table = ({ users, error }) => {
                   data-bs-toggle="modal"
                   data-bs-target="#addUserModal"
                 >
-                  Add Employee
+                  <span className="fs-4">+</span> Add User
                 </button>
               </div>
             </div>

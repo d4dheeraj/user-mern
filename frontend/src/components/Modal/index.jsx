@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {
+  BASE_URL,
+  errMsg,
+  userInitialValue,
+} from "../../constants/apiConstants";
 
 const UserModal = ({ handleClose }) => {
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-  });
+  const [user, setUser] = useState(userInitialValue);
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -15,22 +16,21 @@ const UserModal = ({ handleClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const addUser = await axios.post(
-        "http://localhost:8080/user/create",
-        user
-      );
+      const addUser = await axios.post(BASE_URL + "user/create", user);
       const response = addUser.data;
       if (response.success) {
         alert("User added successfully");
+        setUser(userInitialValue);
         handleClose();
         console.log("Success in handleSubmit", response);
       } else {
-        console.log("Something went wrong", response);
+        console.log(errMsg, response);
       }
     } catch (err) {
       console.log("Error in handleSubmit", err);
     }
   };
+
   return (
     <div id="addUserModal" className="modal fade">
       <div className="modal-dialog">
@@ -53,7 +53,10 @@ const UserModal = ({ handleClose }) => {
                 <input
                   type="text"
                   required
+                  minLength={2}
+                  maxLength={100}
                   name="firstName"
+                  pattern="[A-Za-z]+"
                   className="form-control"
                   value={user.firstName}
                   onChange={handleChange}
@@ -65,7 +68,10 @@ const UserModal = ({ handleClose }) => {
                 <input
                   type="text"
                   required
+                  minLength={2}
+                  maxLength={100}
                   name="lastName"
+                  pattern="[A-Za-z]+"
                   className="form-control"
                   value={user.lastName}
                   onChange={handleChange}
