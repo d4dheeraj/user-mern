@@ -1,4 +1,27 @@
 import User from "../model/User.js";
+import Joi from "joi";
+
+const userSchema = Joi.object({
+  firstName: Joi.string()
+    .min(2)
+    .max(100)
+    .regex(/^[a-zA-Z]+$/)
+    .required()
+    .messages({
+      "string.pattern.base":
+        "firstName should contain only alphabetical characters.",
+    }),
+  lastName: Joi.string()
+    .min(2)
+    .max(100)
+    .regex(/^[a-zA-Z]+$/)
+    .required()
+    .messages({
+      "string.pattern.base":
+        "lastName should contain only alphabetical characters.",
+    }),
+  email: Joi.string().email().required(),
+});
 
 export const getAllUser = async (req, res) => {
   console.log("LOG - Controller - getAllUser");
@@ -19,6 +42,16 @@ export const createUser = async (req, res) => {
 
   try {
     const { firstName, lastName, email } = req.body;
+    const { error } = userSchema.validate({
+      firstName,
+      lastName,
+      email,
+    });
+    // console.log("error", error);
+    if (error) {
+      console.log("ERROR-LOG - Controller - createUser", error);
+      return res.status(500).json({ success: false, message: error.message });
+    }
     const newUser = new User({ firstName, lastName, email });
     // console.log("newUser", newUser);
     const response = await newUser.save();

@@ -8,10 +8,11 @@ RUN test: npm run test
 2. Added gitignore
 3. install express, mongoose, cors, dotenv dependencies
 4. added script commands and type module
-5. added Modal, route and controller
+5. added User Modal, route and controller
+6. install joi for API req validation
+7. Added user schema validation in create user API
 
 pending
 
-1. api validation
 2. unit test cases
-3. Docker 
+3. Docker
