@@ -1,5 +1,9 @@
 1. Created the project with npx create-react-app .
 2. npm i axios bootstrap
+3. created components Modal and Table
+4. created pages User Grid
+5. Added bootstrap dependencies in the App component
+6. added docker files
 
 # Getting Started with Create React App
 
