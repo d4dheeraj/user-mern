@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { errMsg, userInitialValue } from "../../constants/apiConstants";
 import InputText from "../../components/Controls/InputText";
 import InputEmail from "../../components/Controls/InputEmail";
