@@ -2,12 +2,13 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import UserGrid from "./pages/UserGrid";
+import ErrorBoundary from "./ErrorBoundary";
 
 const App = () => {
   return (
-    <div>
+    <ErrorBoundary>
       <UserGrid />
-    </div>
+    </ErrorBoundary>
   );
 };
 
