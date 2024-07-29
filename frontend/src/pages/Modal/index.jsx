@@ -5,6 +5,8 @@ import {
   errMsg,
   userInitialValue,
 } from "../../constants/apiConstants";
+import InputText from "../../components/Controls/InputText";
+import InputEmail from "../../components/Controls/InputEmail";
 
 const UserModal = ({ handleClose }) => {
   const [user, setUser] = useState(userInitialValue);
@@ -12,24 +14,6 @@ const UserModal = ({ handleClose }) => {
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const addUser = await axios.post(BASE_URL + "user/create", user);
-      const response = addUser.data;
-      if (response.success) {
-        alert("User added successfully");
-        setUser(userInitialValue);
-        closeModal();
-        console.log("Success in handleSubmit", response);
-      } else {
-        console.log(errMsg, response);
-      }
-    } catch (err) {
-      console.log("Error in handleSubmit", err);
-    }
   };
 
   const closeModal = () => {
@@ -40,6 +24,27 @@ const UserModal = ({ handleClose }) => {
     backdrops.forEach((backdrop) => backdrop.remove());
 
     handleClose();
+  };
+
+  const createUser = async () => {
+    try {
+      const addUser = await axios.post(BASE_URL + "/user/create", user);
+      const response = addUser.data;
+      if (response.success) {
+        setUser(userInitialValue);
+        closeModal();
+        alert("User added successfully");
+      } else {
+        console.log(errMsg, response);
+      }
+    } catch (err) {
+      console.log("Error in handleSubmit", err);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createUser();
   };
 
   return (
@@ -59,43 +64,28 @@ const UserModal = ({ handleClose }) => {
               ></button>
             </div>
             <div className="modal-body">
-              <div className="form-group">
-                <label>First Name</label>
-                <input
-                  type="text"
-                  required
-                  minLength={2}
-                  maxLength={100}
+              <div className="form-group m-2">
+                <InputText
+                  label="First Name"
                   name="firstName"
-                  pattern="[A-Za-z]+"
-                  className="form-control"
                   value={user.firstName}
                   onChange={handleChange}
                 />
               </div>
 
-              <div className="form-group">
-                <label>Last Name</label>
-                <input
-                  type="text"
-                  required
-                  minLength={2}
-                  maxLength={100}
+              <div className="form-group m-2">
+                <InputText
+                  label="Last Name"
                   name="lastName"
-                  pattern="[A-Za-z]+"
-                  className="form-control"
                   value={user.lastName}
                   onChange={handleChange}
                 />
               </div>
 
-              <div className="form-group">
-                <label>Email</label>
-                <input
-                  type="email"
-                  required
+              <div className="form-group m-2">
+                <InputEmail
+                  label="Email"
                   name="email"
-                  className="form-control"
                   value={user.email}
                   onChange={handleChange}
                 />
