@@ -1,12 +1,8 @@
-import React, { useRef, useState } from "react";
-import axios from "axios";
-import {
-  BASE_URL,
-  errMsg,
-  userInitialValue,
-} from "../../constants/apiConstants";
+import React, { useEffect, useRef, useState } from "react";
+import { errMsg, userInitialValue } from "../../constants/apiConstants";
 import InputText from "../../components/Controls/InputText";
 import InputEmail from "../../components/Controls/InputEmail";
+import { addUser } from "../../utils";
 
 const UserModal = ({ handleClose }) => {
   const [user, setUser] = useState(userInitialValue);
@@ -28,14 +24,13 @@ const UserModal = ({ handleClose }) => {
 
   const createUser = async () => {
     try {
-      const addUser = await axios.post(BASE_URL + "/user/create", user);
-      const response = addUser.data;
-      if (response.success) {
+      const data = await addUser("user/create", user);
+      if (data.success) {
         setUser(userInitialValue);
         closeModal();
         alert("User added successfully");
       } else {
-        console.log(errMsg, response);
+        console.log(errMsg, data);
       }
     } catch (err) {
       console.log("Error in handleSubmit", err);

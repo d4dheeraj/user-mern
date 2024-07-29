@@ -2,7 +2,7 @@ import TableRow from "./TableRow";
 import Header from "./Header";
 import "./index.css";
 
-const Table = ({ users, error }) => {
+const Table = ({ users }) => {
   return (
     <div className="container">
       <div className="table-wrapper m-5">

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
-import axios from "axios";
 import Table from "../../components/Table";
 import UserModal from "../Modal";
-import { BASE_URL, errMsg } from "../../constants/apiConstants";
+import { errMsg } from "../../constants/apiConstants";
+import { fetchUsers } from "../../utils";
 
 const UserGrid = () => {
   const [users, setUsers] = useState([]);
@@ -13,9 +13,9 @@ const UserGrid = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`${BASE_URL}/user`);
-      if (response.data.success) {
-        setUsers(response.data.users);
+      const data = await fetchUsers("user");
+      if (data.success) {
+        setUsers(data.users);
       } else {
         setError(new Error("Failed to fetch users."));
       }
