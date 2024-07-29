@@ -23,7 +23,7 @@ const userSchema = Joi.object({
   email: Joi.string().email().required(),
 });
 
-export const getAllUser = async (req, res) => {
+export const getAllUser = async (_, res) => {
   console.log("LOG - Controller - getAllUser");
   try {
     const users = await User.find();
@@ -47,15 +47,12 @@ export const createUser = async (req, res) => {
       lastName,
       email,
     });
-    // console.log("error", error);
     if (error) {
       console.log("ERROR-LOG - Controller - createUser", error);
       return res.status(500).json({ success: false, message: error.message });
     }
     const newUser = new User({ firstName, lastName, email });
-    // console.log("newUser", newUser);
     const response = await newUser.save();
-    // console.log("response", response);
     res.status(200).json({
       success: true,
       message: "User is created successfully",
