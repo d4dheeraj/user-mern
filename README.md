@@ -5,7 +5,11 @@ cd backend
 ```
 
 ```
-npm run dev
+npm start
+```
+
+```
+npm run test
 ```
 
 RUN frontend

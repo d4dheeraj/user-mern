@@ -1,27 +1,5 @@
 import User from "../model/User.js";
-import Joi from "joi";
-
-const userSchema = Joi.object({
-  firstName: Joi.string()
-    .min(2)
-    .max(100)
-    .regex(/^[a-zA-Z]+$/)
-    .required()
-    .messages({
-      "string.pattern.base":
-        "firstName should contain only alphabetical characters.",
-    }),
-  lastName: Joi.string()
-    .min(2)
-    .max(100)
-    .regex(/^[a-zA-Z]+$/)
-    .required()
-    .messages({
-      "string.pattern.base":
-        "lastName should contain only alphabetical characters.",
-    }),
-  email: Joi.string().email().required(),
-});
+import { userSchema } from "../utils/joi.js";
 
 export const getAllUser = async (_, res) => {
   console.log("LOG - Controller - getAllUser");
